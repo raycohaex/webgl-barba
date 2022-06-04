@@ -3,6 +3,7 @@
     "@parcel/transformer-glsl": "^2.6.0"
   },
   "dependencies": {
+    "gsap": "^3.10.4",
     "three": "^0.141.0",
     "three-subdivision-modifier": "^1.0.5"
   }

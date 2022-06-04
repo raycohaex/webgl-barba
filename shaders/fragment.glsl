@@ -1,21 +1,28 @@
 uniform float time;
 uniform sampler2D uTexture;
-
-varying float pulse;
+uniform vec2 textureSize;
 varying vec2 vUv;
-varying vec3 vNormal;
+varying vec2 vSize;
+
+vec2 getUV(vec2 uv, vec2 textureSize, vec2 quadSize) {
+    vec2 tempUV = uv - vec2(0.5);
+
+    // Scale images
+    float quadAspect = quadSize.x/quadSize.y;
+    float textureAspect = textureSize.x/textureSize.y;
+    if(quadAspect<textureAspect) {
+        tempUV = tempUV*vec2(quadAspect/textureAspect,1.); 
+    } else {
+        tempUV = tempUV*vec2(1.,textureAspect/quadAspect); 
+    }
+
+    tempUV += vec2(0.5);
+    return tempUV;
+}
 
 void main() {
-    // gl_FragColor = vec4(0.,0.,1., 1.);
+    vec2 correctUV = getUV(vUv, textureSize, vSize);
 
-    vec4 myimage = texture(
-        uTexture,
-        vUv + 0.01*sin(vUv*20. + time) 
-    );
-
-    float sinePulse = (1. + sin(vUv.x*50. - time))*0.5;
-    gl_FragColor = vec4( vUv,0.,1.);
-    gl_FragColor = vec4( sinePulse,0.,0.,1.);
-    gl_FragColor = myimage;
-    gl_FragColor = vec4( 1,(0.5+ pulse),0.212,0.5);
+    vec4 image = texture(uTexture, correctUV);
+    gl_FragColor = image;
 }
