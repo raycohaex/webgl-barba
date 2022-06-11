@@ -3,6 +3,8 @@
     "@parcel/transformer-glsl": "^2.6.0"
   },
   "dependencies": {
+    "@ashthornton/asscroll": "github:ashthornton/asscroll",
+    "@barba/core": "^2.9.7",
     "gsap": "^3.10.4",
     "three": "^0.141.0",
     "three-subdivision-modifier": "^1.0.5"
